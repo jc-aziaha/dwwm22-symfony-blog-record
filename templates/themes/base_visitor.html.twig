@@ -11,9 +11,14 @@
         <meta name="keywords" content="{% block keywords %}{% endblock %}">
         <meta name="author" content="Jean Dupont">
         <meta name="publisher" content="DWWM">
+        <meta name="theme-color" content="#08086d">
 
         {# Favicon #}
-
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="manifest" href="/site.webmanifest">
 
         {# Font Awesome #}
         {% block font_awesome %}{% endblock %}
@@ -51,10 +56,10 @@
                             <a class="nav-link" href="{{path('app_visitor_welcome')}}#about-me">Qui suis-je?</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
+                            <a class="nav-link" href="{{path('app_visitor_blog_index')}}">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="{{path('app_visitor_contact_index')}}">Contact</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
