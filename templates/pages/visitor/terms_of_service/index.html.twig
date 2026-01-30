@@ -1,0 +1,123 @@
+{% extends "themes/base_visitor.html.twig" %}
+
+{% block title %}
+Conditions Générales d'Utilisation | Médecine du Monde – Blog santé du Dr Jean Dupont
+{% endblock %}
+
+{% block description %}
+Consultez les conditions générales d'utilisation du blog Médecine du Monde afin de connaître les règles d'accès, d'utilisation des contenus médicaux et les responsabilités des utilisateurs.
+{% endblock %}
+
+{% block keywords %}
+conditions générales d'utilisation, CGU blog santé, terms of service, Médecine du Monde CGU, règles utilisation site médical
+{% endblock %}
+
+{% block main %}
+<section class="container my-5">
+    <h1 class="text-center mb-4 display-5">Conditions Générales d'Utilisation</h1>
+
+    <p class="text-muted text-center mb-5">
+        Dernière mise à jour : {{ "now"|date("d/m/Y") }}
+    </p>
+
+    <h2>1. Présentation du site</h2>
+    <p>
+        Le site <strong>Médecine du Monde</strong> est un blog d'information dédié à la santé,
+        à la prévention et au bien-être, édité par le <strong>Dr Jean Dupont</strong>.
+        Il a pour objectif de partager des contenus informatifs et pédagogiques à destination du grand public.
+    </p>
+
+    <h2>2. Acceptation des conditions</h2>
+    <p>
+        L'accès et l'utilisation du site impliquent l'acceptation pleine et entière des présentes
+        Conditions Générales d'Utilisation (CGU).
+        En naviguant sur ce site, l'utilisateur reconnaît avoir pris connaissance des CGU et s'engage à les respecter.
+    </p>
+
+    <h2>3. Accès au site et aux services</h2>
+    <p>
+        Le site est accessible gratuitement à tout utilisateur disposant d'un accès à Internet.
+        Certaines fonctionnalités peuvent nécessiter la création d'un compte utilisateur.
+    </p>
+    <p>
+        L'éditeur se réserve le droit de suspendre, restreindre ou interrompre l'accès au site
+        pour des raisons techniques, de maintenance ou de sécurité, sans préavis.
+    </p>
+
+    <h2>4. Contenus médicaux et responsabilité</h2>
+    <p>
+        Les informations publiées sur le blog Médecine du Monde sont fournies à titre
+        <strong>strictement informatif</strong>.
+        Elles ne constituent en aucun cas un diagnostic médical, un avis personnalisé
+        ou une prescription.
+    </p>
+    <p>
+        Les contenus proposés ne sauraient se substituer à une consultation auprès d'un
+        professionnel de santé qualifié.
+        L'éditeur ne pourra être tenu responsable de l'utilisation ou de l'interprétation
+        des informations diffusées sur le site.
+    </p>
+
+    <h2>5. Compte utilisateur</h2>
+    <p>
+        L'utilisateur s'engage à fournir des informations exactes lors de la création de son compte
+        et à préserver la confidentialité de ses identifiants.
+    </p>
+    <p>
+        Toute utilisation frauduleuse du compte engage la responsabilité de l'utilisateur.
+        En cas de suspicion d'utilisation abusive, l'éditeur se réserve le droit de suspendre
+        ou supprimer le compte concerné.
+    </p>
+
+    <h2>6. Propriété intellectuelle</h2>
+    <p>
+        L'ensemble des contenus présents sur le site (textes, images, logos, vidéos, graphismes)
+        est protégé par le droit d'auteur et demeure la propriété exclusive de l'éditeur,
+        sauf mention contraire.
+    </p>
+    <p>
+        Toute reproduction, représentation ou diffusion, totale ou partielle,
+        sans autorisation préalable écrite, est strictement interdite.
+    </p>
+
+    <h2>7. Comportement des utilisateurs</h2>
+    <p>
+        L'utilisateur s'engage à adopter un comportement respectueux et conforme à la loi.
+        Sont notamment interdits :
+    </p>
+    <ul>
+        <li>les propos diffamatoires, injurieux ou discriminatoires ;</li>
+        <li>la diffusion de fausses informations médicales ;</li>
+        <li>toute tentative de perturbation du bon fonctionnement du site.</li>
+    </ul>
+
+    <h2>8. Données personnelles</h2>
+    <p>
+        Les données personnelles éventuellement collectées sont traitées conformément
+        à la réglementation en vigueur.
+        Pour plus d'informations, l'utilisateur est invité à consulter la
+        {# <a href="{{ path('app_privacy_policy') }}">Politique de confidentialité</a>. #}
+    </p>
+
+    <h2>9. Liens externes</h2>
+    <p>
+        Le site peut contenir des liens vers des sites tiers.
+        L'éditeur n'exerce aucun contrôle sur ces sites et décline toute responsabilité
+        quant à leur contenu ou à leurs pratiques.
+    </p>
+
+    <h2>10. Modification des CGU</h2>
+    <p>
+        Les présentes CGU peuvent être modifiées à tout moment afin de s'adapter à l'évolution
+        du site ou de la législation.
+        Les utilisateurs sont invités à les consulter régulièrement.
+    </p>
+
+    <h2>11. Droit applicable</h2>
+    <p>
+        Les présentes Conditions Générales d'Utilisation sont soumises au droit français.
+        En cas de litige, et à défaut de résolution amiable, les tribunaux compétents seront
+        ceux du ressort du siège de l'éditeur.
+    </p>
+</section>
+{% endblock %}
