@@ -53,7 +53,7 @@
                             <div class="alert alert-danger text-center" role="alert">{{ flash_error }}</div>
                         {% endfor %}
 
-                        {{form_start(registrationForm)}}
+                        {{form_start(registrationForm, {'attr': {'class':'jd-auth-form'}})}}
                             <div class="row">
                                 <div class="col-lg-6 mb-3">
                                     <label for="registration_form_firstName">Prénom</label>
@@ -93,7 +93,7 @@
                         {{form_end(registrationForm)}}
 
                         <div class="text-center">
-                            <p>Vous avez déjà un compte? <a href="">Connectez-vous</a></p>
+                            <p>Vous avez déjà un compte? <a href="{{path('app_login')}}">Connectez-vous</a></p>
                             <p><a href="{{path('app_visitor_welcome')}}">Retour à l'accueil</a></p>
                         </div>
                     </div>
