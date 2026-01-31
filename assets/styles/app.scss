@@ -8,5 +8,8 @@
 @import "./base/typography";
 @import "./base/classes";
 
+// Components
+@import "./components/auth-form";
+
 // Themes
 @import "./themes/base_visitor.scss";
