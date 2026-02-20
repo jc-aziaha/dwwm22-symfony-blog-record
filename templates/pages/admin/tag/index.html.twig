@@ -1,11 +1,11 @@
 {% extends "themes/base_admin.html.twig" %}
 
 {% block title %}
-    Liste des catégories
+    Liste des tags
 {% endblock %}
 
 {% block description %}
-    Consultez la liste des vos catégories
+    Consultez la liste des vos tags
 {% endblock %}
 
 {% block j_query %}
@@ -29,12 +29,12 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center my-3 display-5">Liste des catégories</h1>
+    <h1 class="text-center my-3 display-5">Liste des tags</h1>
 
     {% include 'components/_alert.html.twig' %}
 
     <div class="d-flex justify-content-end align-items-center my-3">
-        <a href="{{path('app_admin_category_create')}}" class="btn btn-primary shadow"><i class="fa-solid fa-plus"></i> Nouvelle catégorie</a>
+        <a href="{{path('app_admin_tag_create')}}" class="btn btn-primary shadow"><i class="fa-solid fa-plus"></i> Nouveau tag</a>
     </div>
 
     <div class="table-responsive">
@@ -49,17 +49,17 @@
                 </tr>
             </thead>
             <tbody>
-                {% for category in categories %}
+                {% for tag in tags %}
                     <tr>
-                        <td>{{category.name}}</td>
-                        <td>{{category.slug}}</td>
-                        <td>{{category.createdAt|format_date()}}</td>
-                        <td>{{category.updatedAt|format_date()}}</td>
+                        <td>{{tag.name}}</td>
+                        <td>{{tag.slug}}</td>
+                        <td>{{tag.createdAt|format_date()}}</td>
+                        <td>{{tag.updatedAt|format_date()}}</td>
                         <td class="d-flex justify-content-center align-items-center gap-1">
-                            <a href="{{path('app_admin_category_edit', {'id':category.id})}}" class="btn btn-sm btn-secondary">Modifier</a>
-                            <form action="{{path('app_admin_category_delete', {'id':category.id})}}" method="post">
-                                <input type="hidden" name="csrf_token" value="{{csrf_token('delete-category-'~category.id)}}">
-                                <input type="submit" class="btn btn-sm btn-danger" value="Supprimer" onclick="return confirm('Confirmer ma suppression de cette catégorie?')">
+                            <a href="{{path('app_admin_tag_edit', {'id':tag.id})}}" class="btn btn-sm btn-secondary">Modifier</a>
+                            <form action="{{path('app_admin_tag_delete', {'id':tag.id})}}" method="post">
+                                <input type="hidden" name="csrf_token" value="{{csrf_token('delete-tag-'~tag.id)}}">
+                                <input type="submit" class="btn btn-sm btn-danger" value="Supprimer" onclick="return confirm('Confirmer la suppression de cette catégorie?')">
                             </form>
                         </td>
                     </tr>
