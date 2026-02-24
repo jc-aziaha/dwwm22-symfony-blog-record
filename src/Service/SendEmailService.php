@@ -14,12 +14,10 @@ class SendEmailService
     ) {
     }
 
-
     /**
      * Permet d'envoyer un email.
      *
      * @param array<string, mixed> $data
-     * @return void
      */
     public function sendEmail(array $data = []): void
     {
