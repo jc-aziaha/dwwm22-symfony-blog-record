@@ -9,7 +9,13 @@
 @import "./base/classes";
 
 // Components
+@import "./components/visitor/header_visitor";
 @import "./components/auth-form";
+
+// Layout
+
+// Pages
+@import "./pages/visitor/gap_contact_visitor";
 
 // Themes
 @import "./themes/base_visitor.scss";
