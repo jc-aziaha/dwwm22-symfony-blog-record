@@ -15,4 +15,5 @@ parameters:
         - '#Property App\\Entity\\Post::\$isPublished \(bool\|null\) is never assigned null so it can be removed from the property type#'
         - '#Property App\\Entity\\Tag::\$id \(int\|null\) is never assigned int so it can be removed from the property type#'
         - '#Property App\\Entity\\Setting::\$id \(int\|null\) is never assigned int so it can be removed from the property type#'
+        - '#Property App\\Entity\\Contact::\$id \(int\|null\) is never assigned int so it can be removed from the property type#'
 
