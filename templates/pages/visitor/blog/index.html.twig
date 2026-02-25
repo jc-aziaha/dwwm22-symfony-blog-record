@@ -25,7 +25,7 @@
 							{% if categories is not empty %}
 								{% for category in categories %}
 									<li>
-										<a class="dropdown-item" href="#">
+										<a class="dropdown-item" href="{{path('app_visitor_blog_filter_by_category', {'id':category.id, 'slug':category.slug})}}">
 											{{category.name}} ({{category.posts|length}} article{{category.posts|length > 1 ? 's' : ''}})
 										</a>
 									</li>
@@ -46,7 +46,7 @@
 							{% if tags is not empty %}
 								{% for tag in tags %}
 									<li>
-										<a class="dropdown-item" href="#">
+										<a class="dropdown-item" href="{{path('app_visitor_blog_filter_by_tag', {'id':tag.id, 'slug':tag.slug})}}">
 											{{tag.name}} ({{tag.posts|length}} article{{tag.posts|length > 1 ? 's' : ''}})
 										</a>
 									</li>

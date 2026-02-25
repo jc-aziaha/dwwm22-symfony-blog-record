@@ -2,6 +2,8 @@
 
 namespace App\Controller\Visitor\Blog;
 
+use App\Entity\Category;
+use App\Entity\Tag;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
@@ -26,7 +28,47 @@ final class BlogController extends AbstractController
     {
         $categories = $this->categoryRepository->findAll();
         $tags = $this->tagRepository->findAll();
-        $query = $this->postRepository->findBy(['isPublished' => true]);
+        $query = $this->postRepository->findBy(['isPublished' => true], ['publishedAt' => 'DESC']);
+
+        $posts = $this->paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
+
+        return $this->render('pages/visitor/blog/index.html.twig', [
+            'categories' => $categories,
+            'tags' => $tags,
+            'posts' => $posts,
+        ]);
+    }
+
+    #[Route('/blog/articles-filtre-par-categorie/{id<\d+>}/{slug}', name: 'app_visitor_blog_filter_by_category', methods: ['GET'])]
+    public function filterPostsByCategory(Category $category, Request $request): Response
+    {
+        $categories = $this->categoryRepository->findAll();
+        $tags = $this->tagRepository->findAll();
+        $query = $this->postRepository->findBy(['category' => $category, 'isPublished' => true], ['publishedAt' => 'DESC']);
+
+        $posts = $this->paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
+
+        return $this->render('pages/visitor/blog/index.html.twig', [
+            'categories' => $categories,
+            'tags' => $tags,
+            'posts' => $posts,
+        ]);
+    }
+
+    #[Route('/blog/articles-filtre-par-tag/{id<\d+>}/{slug}', name: 'app_visitor_blog_filter_by_tag', methods: ['GET'])]
+    public function filterPostsByTag(Tag $tag, Request $request): Response
+    {
+        $categories = $this->categoryRepository->findAll();
+        $tags = $this->tagRepository->findAll();
+        $query = $this->postRepository->filterPostsByTag($tag->getId());
 
         $posts = $this->paginator->paginate(
             $query, /* query NOT result */
