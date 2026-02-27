@@ -97,6 +97,13 @@ final class BlogController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->isGranted('ROLE_USER')) {
+                return $this->redirectToRoute('app_visitor_blog_post_show', [
+                    'id' => $post->getId(),
+                    'slug' => $post->getSlug(),
+                ]);
+            }
+
             /**
              * @var User
              */

@@ -67,15 +67,17 @@
                     {% if post.comments is not empty %}
                         <h2>Liste des commentaires</h2>
                         {% for comment in post.comments|reverse %}
-                            <div class="shadow p-3 my-4 rounded">
-                                <p>
-                                    <strong>{{comment.user.firstName}} {{comment.user.lastName}}</strong>
-                                    <small>Publié {{comment.createdAt|ago}}</small>                                
-                                </p>
-                                <div>
-                                    {{comment.content}}
+                            {% if comment.isActivated %}
+                                <div class="shadow p-3 my-4 rounded">
+                                    <p>
+                                        <strong>{{comment.user.firstName}} {{comment.user.lastName}}</strong>
+                                        <small>Publié {{comment.createdAt|ago}}</small>                                
+                                    </p>
+                                    <div>
+                                        {{comment.content}}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                 </div>
