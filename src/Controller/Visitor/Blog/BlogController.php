@@ -3,6 +3,7 @@
 namespace App\Controller\Visitor\Blog;
 
 use App\Entity\Category;
+use App\Entity\Post;
 use App\Entity\Tag;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
@@ -80,6 +81,14 @@ final class BlogController extends AbstractController
             'categories' => $categories,
             'tags' => $tags,
             'posts' => $posts,
+        ]);
+    }
+
+    #[Route('/blog/article/{id<\d+>}/{slug}', name: 'app_visitor_blog_post_show', methods: ['GET'])]
+    public function showPost(Post $post): Response
+    {
+        return $this->render('pages/visitor/blog/show.html.twig', [
+            'post' => $post,
         ]);
     }
 }
