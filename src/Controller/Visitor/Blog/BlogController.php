@@ -3,10 +3,15 @@
 namespace App\Controller\Visitor\Blog;
 
 use App\Entity\Category;
+use App\Entity\Comment;
+use App\Entity\Post;
 use App\Entity\Tag;
+use App\Entity\User;
+use App\Form\CommentFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +25,7 @@ final class BlogController extends AbstractController
         private readonly CategoryRepository $categoryRepository,
         private readonly TagRepository $tagRepository,
         private readonly PaginatorInterface $paginator,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -80,6 +86,47 @@ final class BlogController extends AbstractController
             'categories' => $categories,
             'tags' => $tags,
             'posts' => $posts,
+        ]);
+    }
+
+    #[Route('/blog/article/{id<\d+>}/{slug}', name: 'app_visitor_blog_post_show', methods: ['GET', 'POST'])]
+    public function showPost(Post $post, Request $request): Response
+    {
+        $comment = new Comment();
+        $form = $this->createForm(CommentFormType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->isGranted('ROLE_USER')) {
+                return $this->redirectToRoute('app_visitor_blog_post_show', [
+                    'id' => $post->getId(),
+                    'slug' => $post->getSlug(),
+                ]);
+            }
+
+            /**
+             * @var User
+             */
+            $user = $this->getUser();
+
+            $comment->setPost($post);
+            $comment->setUser($user);
+            $comment->setIsActivated(true);
+            $comment->setCreatedAt(new \DateTimeImmutable());
+            $comment->setActivatedAt(new \DateTimeImmutable());
+
+            $this->entityManager->persist($comment);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_visitor_blog_post_show', [
+                'id' => $post->getId(),
+                'slug' => $post->getSlug(),
+            ]);
+        }
+
+        return $this->render('pages/visitor/blog/show.html.twig', [
+            'post' => $post,
+            'commentForm' => $form->createView(),
         ]);
     }
 }

@@ -4,7 +4,9 @@
 
 {% block description %}Retrouvez tous les articles du blog Médecine du Monde : conseils santé, prévention, éclairages sur les spécialités médicales et témoignages inspirants, rédigés par des professionnels.{% endblock %}
 
-{% block keywords %}articles santé, articles médicaux, blog médecine, prévention santé, conseils médicaux, information santé, médecine expliquée{% endblock %}
+{% block keywords %}
+<meta name="keywords" content="articles santé, articles médicaux, blog médecine, prévention santé, conseils médicaux, information santé, médecine expliquée">
+{% endblock %}
 
 {% block knp_paginator %}
 	{{ knp_pagination_rel_links(posts) }}
@@ -85,7 +87,7 @@
 											</p>
 											{% endif %}
 											<p class="card-text"><small class="text-body-secondary">Publié {{post.publishedAt|ago}}</small></p>
-											<a href="" class="btn btn-primary shadow">Lire l'article</a>
+											<a href="{{path('app_visitor_blog_post_show', {'id':post.id, 'slug':post.slug})}}" class="btn btn-primary shadow">Lire l'article</a>
 										</div>
 									</div>
 								</div>
