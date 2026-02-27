@@ -41,6 +41,45 @@
                 <div class="my-5">
                     {{post.content|raw}}
                 </div>
+
+                <hr>
+                <div>
+                    {% if app.user %}
+                        {# Form #}
+                        {{form_start(commentForm, {'action': path('app_visitor_blog_post_show', {'id':post.id, 'slug':post.slug})~'#comments-container'})}}
+                            <div class="mb-3">
+                                <label for="comment_form_content" class="h2">Laissez un commentaire</label>
+                                <div class="text-danger">{{form_errors(commentForm.content)}}</div>
+                                {{form_widget(commentForm.content, {'attr': {'class':'form-control', 'rows':4}})}}
+                            </div>
+                            <div>
+                                <input formnovalidate type="submit" class="btn btn-primary shadow" value="Commenter">
+                            </div>
+                        {{form_end(commentForm)}}
+                    {% else %}
+                        <p><strong>Veuillez vous connecter afin de laisser un commentaire:</strong> <a href="{{path('app_login')}}" class="btn btn-lg btn-outline-primary">Se connecter</a></p>
+                    {% endif %}              
+                </div>
+                <hr>
+
+
+                <div id="comments-container">
+                    {% if post.comments is not empty %}
+                        <h2>Liste des commentaires</h2>
+                        {% for comment in post.comments|reverse %}
+                            <div class="shadow p-3 my-4 rounded">
+                                <p>
+                                    <strong>{{comment.user.firstName}} {{comment.user.lastName}}</strong>
+                                    <small>Publié {{comment.createdAt|ago}}</small>                                
+                                </p>
+                                <div>
+                                    {{comment.content}}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
         
             </div>
         </div>
