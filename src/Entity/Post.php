@@ -370,4 +370,20 @@ class Post
 
         return $this;
     }
+
+    /**
+     * Vérifie si l'article a déjà été aimé ou non.
+     */
+    public function isAlreadyLikedBy(User $user): bool
+    {
+        $likes = $this->getLikes()->toArray();
+
+        foreach ($likes as $like) {
+            if ($user == $like->getUser()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
