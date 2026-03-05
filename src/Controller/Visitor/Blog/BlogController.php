@@ -4,11 +4,13 @@ namespace App\Controller\Visitor\Blog;
 
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\Like;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Form\CommentFormType;
 use App\Repository\CategoryRepository;
+use App\Repository\LikeRepository;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,6 +28,7 @@ final class BlogController extends AbstractController
         private readonly TagRepository $tagRepository,
         private readonly PaginatorInterface $paginator,
         private readonly EntityManagerInterface $entityManager,
+        private readonly LikeRepository $likeRepository,
     ) {
     }
 
@@ -127,6 +130,54 @@ final class BlogController extends AbstractController
         return $this->render('pages/visitor/blog/show.html.twig', [
             'post' => $post,
             'commentForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/blog/article/{id<\d+>}/{slug}/aimer', name: 'app_visitor_blog_post_like', methods: ['GET'])]
+    public function likePost(Post $post): Response
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        if (null == $user) {
+            return $this->json([
+                'message' => "Veuillez vous connecter afin d'aimer cet article",
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        // Si l'article est déjà aimé,
+        if ($post->isAlreadyLikedBy($user)) {
+            // Récupérer le like en question
+            $like = $this->likeRepository->findOneBy(['post' => $post, 'user' => $user]);
+
+            // Le supprimer de la base de données
+            $this->entityManager->remove($like);
+            $this->entityManager->flush();
+
+            // Retourner le message correspondant ainsi que le nombre de likes mis à jour au client
+            return $this->json([
+                'message' => "Vous avez retiré votre like de cet article {$post->getTitle()}",
+                'totalLikesUpdated' => $this->likeRepository->count(['post' => $post]),
+            ]);
+        }
+
+        // Dans le cas contraire,
+        // Créer le nouveau like
+        $like = new Like();
+
+        // Initialiser ses propriétés
+        $like->setUser($user);
+        $like->setPost($post);
+        $like->setCreatedAt(new \DateTimeImmutable());
+
+        // Le sauvegarder en base de données
+        $this->entityManager->persist($like);
+        $this->entityManager->flush();
+
+        // Retourner le message correspondant ainsi que le nombre de likes mis à jour au client
+        return $this->json([
+            'message' => "Vous avez liké l'article {$post->getTitle()}",
+            'totalLikesUpdated' => $this->likeRepository->count(['post' => $post]),
         ]);
     }
 }
