@@ -9,5 +9,82 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center my-3 display-5">Accueil</h1>
+
+    <header class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 order-md-2 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid" src="/images/statics/doctor-jean-dupont-welcome.png" alt="Une image de bienvenue de Jean Dupont">
+                </div>
+                <div class="col-md-7 order-md-1 d-flex flex-column justify-content-center align-items-center gap-5">
+                    <h1 class="mt-5 display-5">Bienvenue sur mon blog !</h1>
+
+                    <div>
+                        <p>Je suis Jean Dupont, passionné par le bien-être et la santé.</p>
+                        <p>Ensemble, découvrons les clés d'une vie saine, équilibrée et épanouie.</p>
+                    </div>
+
+                    <a href="{{path('app_visitor_blog_index')}}" class="btn btn-lg btn-primary shadow">Liste des articles</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about-me" class="bg-light py-5">
+        <h2 class="text-center my-3 display-6">Qui suis-je?</h2>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid" src="/images/statics/about-me.png" alt="A propos de moi">
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati impedit nesciunt rerum ab consequuntur laborum dignissimos quidem delectus! Nihil quasi ab enim voluptates quae, laboriosam blanditiis sequi saepe, debitis consectetur a inventore. Odit id quidem nihil dicta eius veritatis.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati impedit nesciunt rerum ab consequuntur laborum dignissimos quidem delectus! Nihil quasi ab enim voluptates quae, laboriosam blanditiis sequi saepe, debitis consectetur a inventore. Odit id quidem nihil dicta eius veritatis.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati impedit nesciunt rerum ab consequuntur laborum dignissimos quidem delectus! Nihil quasi ab enim voluptates quae, laboriosam blanditiis sequi saepe, debitis consectetur a inventore. Odit id quidem nihil dicta eius veritatis.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <h2 class="text-center my-3 display-6">Les derniers articles</h2>
+
+        <div class="container">
+            <div class="card-group gap-3">
+                {% for post in posts %}
+                    <div class="card shadow">
+                        {% if post.image %}
+                            <img class="w-100 h-100 card-img-top" src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('visitor_post_thumb') }}" alt="{{ post.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.title|u.truncate('80','...')}}</h5>
+                            <p class="card-text"><strong>Categorie</strong>: <span class="badge text-bg-info">{{post.category.name}}</span></p>
+                            {% if post.tags is not empty %}
+                                <p class="card-text"><strong>Tags</strong>: 
+                                    {% for tag in post.tags %}
+                                        <span class="badge text-bg-secondary">{{tag.name}}</span> 
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                            <p class="card-text">Publié <small class="text-body-secondary">{{post.publishedAt|ago}}</small></p>
+							<a href="{{path('app_visitor_blog_post_show', {'id':post.id, 'slug':post.slug})}}" class="btn btn-primary shadow">Lire l'article</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light py-5">
+        <div class="container text-center">
+            <a href="{{path('app_visitor_contact_index')}}" class="btn btn-lg btn-primary shadow">Contactez-moi</a>
+        </div>
+    </section>
 {% endblock %}
